@@ -54,6 +54,7 @@ public class SquadreController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
+		squadreService.cancella(id);
 		return ResponseEntity.ok("Squadra cancellato");
 	}
 	

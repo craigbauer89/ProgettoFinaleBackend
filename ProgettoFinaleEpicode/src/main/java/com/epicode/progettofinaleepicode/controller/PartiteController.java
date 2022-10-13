@@ -53,8 +53,12 @@ public class PartiteController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
-		return ResponseEntity.ok("Partita cancellato");
+		partiteService.cancella(id);
+		return ResponseEntity.ok("Partite cancellato");
+
 	}
+	
+
 	
 }
 

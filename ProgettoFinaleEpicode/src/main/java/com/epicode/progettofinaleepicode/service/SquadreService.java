@@ -77,6 +77,14 @@ public class SquadreService {
 		return squadreRepository.save(squadra);
 		
 	}
+		
+		public void cancella(Long id) {
+			if (!squadreRepository.existsById(id)) {
+				throw new EntityNotFoundException("Squadra not trovato");
+			}
+			
+			squadreRepository.deleteById(id);
+		}
 
 }
 

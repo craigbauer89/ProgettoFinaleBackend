@@ -79,6 +79,14 @@ public class PartiteService {
 		return partiteRepository.save(partita);
 		
 	}
+		
+		public void cancella(Long id) {
+			if (!partiteRepository.existsById(id)) {
+				throw new EntityNotFoundException("Partite not trovato");
+			}
+			
+			partiteRepository.deleteById(id);
+		}
 
 }
 
