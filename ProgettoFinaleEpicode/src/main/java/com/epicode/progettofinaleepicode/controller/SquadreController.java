@@ -38,6 +38,7 @@ public class SquadreController {
 	}
 	
 	@PostMapping
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Squadre> insert(@RequestBody SquadreDto dto) {
 		return ResponseEntity.ok(squadreService.insert(dto));
 	}
@@ -48,11 +49,13 @@ public class SquadreController {
 	}
 	
 	@PutMapping("/{id}")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Squadre> update(@PathVariable Long id,@RequestBody SquadreDto dto) {
 		return ResponseEntity.ok(squadreService.update(id, dto));
 	}
 	
 	@DeleteMapping("/{id}")
+//	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		squadreService.cancella(id);
 		return ResponseEntity.ok("Squadra cancellato");
