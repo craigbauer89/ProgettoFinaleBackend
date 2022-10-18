@@ -1,8 +1,10 @@
 package com.epicode.progettofinaleepicode.auth.config;
 
+import org.apache.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -68,20 +70,32 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		log.trace("configure(HttpSecurity http)");
 		http.cors()
-			.and()
-			.csrf()
-			.disable()
-			.exceptionHandling()
-			.authenticationEntryPoint(unauthorizedHandler)
-			.and()
-			.sessionManagement()
-			.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-			.and()
-			.authorizeRequests()
-			.antMatchers("/**")
-			.permitAll()
-			.anyRequest()
-			.authenticated();
+		.and()
+		.csrf()
+		.disable()
+		.exceptionHandling()
+		.authenticationEntryPoint(unauthorizedHandler)
+		.and()
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and()
+		.authorizeRequests()
+		.antMatchers("/**")
+		.permitAll()
+		.anyRequest()
+		.authenticated();
+			
+//			.and()
+//			.authorizeRequests().antMatchers("/auth/login").permitAll()
+//		.and()
+//			.authorizeRequests()
+//			.antMatchers("/**")
+//			.permitAll()
+//			.antMatchers(HttpHeaders.ALLOW).permitAll()
+//			.anyRequest()
+//			.authenticated();
+//		http.cors()
+//		.and().authorizeRequests().antMatchers("/login").permitAll();
 
 		http.headers().frameOptions().disable();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

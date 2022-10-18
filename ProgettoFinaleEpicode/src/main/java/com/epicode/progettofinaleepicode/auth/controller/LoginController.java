@@ -21,6 +21,9 @@ import com.epicode.progettofinaleepicode.auth.config.JwtUtils;
 import com.epicode.progettofinaleepicode.auth.entity.JwtResponse;
 import com.epicode.progettofinaleepicode.auth.entity.Login;
 import com.epicode.progettofinaleepicode.auth.entity.UserDetailsImpl;
+import com.epicode.progettofinaleepicode.auth.entity.Utente;
+import com.epicode.progettofinaleepicode.auth.repository.UserRepository;
+import com.epicode.progettofinaleepicode.auth.service.UserService;
 
 
 
@@ -33,14 +36,22 @@ public class LoginController {
 	@Autowired
 	JwtUtils jwtUtils;
 	
+	@Autowired
+	UserRepository userRepo;
+	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@Valid @RequestBody Login request) {
 		
 		UsernamePasswordAuthenticationToken usrNameAuth = new UsernamePasswordAuthenticationToken( 
-				request.getUserName(), 
+				request.getUsername(), 
 				request.getPassword()
+				
 		);
+		System.out.println(request.getUsername());
+		System.out.println(request.getPassword());
 		Authentication authentication = authManager.authenticate(usrNameAuth);
+		
+		System.out.println(authentication);
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		String jwt = jwtUtils.generateJwtToken(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -48,15 +59,21 @@ public class LoginController {
 								.stream()
 								.map(item -> item.getAuthority())
 								.collect(Collectors.toList());
+		Long id = userDetails.getId();
 		
-		JwtResponse jwtresp = new JwtResponse(
-				jwt, 
-				userDetails.getId(), 
-				userDetails.getUsername(),
-				roles
-			);
+//		JwtResponse jwtresp = new JwtResponse(
+//				jwt, 
+//				userDetails.getId(), 
+//				userDetails.getUsername(),
+//				roles
+//			);
+		
+		Utente user = userRepo.findById(id).get();
+		JwtResponse jwtresp = new JwtResponse(user, jwt);
 		
 		return ResponseEntity.ok(jwtresp);
 		
 	}
+
+
 }

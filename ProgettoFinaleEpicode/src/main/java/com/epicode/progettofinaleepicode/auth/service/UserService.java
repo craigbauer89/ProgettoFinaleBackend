@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
@@ -18,9 +20,11 @@ import org.springframework.validation.annotation.Validated;
 import com.epicode.progettofinaleepicode.auth.entity.Role;
 import com.epicode.progettofinaleepicode.auth.entity.UserResponse;
 import com.epicode.progettofinaleepicode.auth.entity.Utente;
+import com.epicode.progettofinaleepicode.auth.entity.UtenteDto;
 import com.epicode.progettofinaleepicode.auth.repository.RoleRepository;
 import com.epicode.progettofinaleepicode.auth.repository.UserRepository;
 import com.epicode.progettofinaleepicode.entity.Squadre;
+import com.epicode.progettofinaleepicode.entity.SquadreDto;
 
 import lombok.AllArgsConstructor;
 
@@ -37,6 +41,10 @@ public class UserService {
 	
 	private RoleRepository  roleRepository;
 	
+	private ObjectProvider<Utente>utenteProvider;
+	
+	private ObjectProvider<UtenteDto> utenteDtoProvider;
+	
 	PasswordEncoder encoder;
 	
 	public List<Utente> getAll() {
@@ -44,19 +52,28 @@ public class UserService {
 	}
 	
 
-	public Utente insert(Utente user) {
-		if(userRepository.existsById(user.getId())) {
-			throw new EntityExistsException("User gia inserito");
+	public Utente insert(UtenteDto dto) {
+		if(userRepository.existsByUsername(dto.getUsername())) {
+			throw new EntityExistsException("Username gia inserito");
 		}
+		
+		
+		
+		dto.setPassword(encoder.encode(dto.getPassword()));
+		
+		Utente user = utenteProvider.getObject();
+		BeanUtils.copyProperties(dto, user);
+		
 		Role role = roleRepository.findById((long) 2).get();
 		
 		Set <Role> roles = new HashSet<>();
 		roles.add(role);
 		user.setRoles(roles);
-		user.setPassword(encoder.encode(user.getPassword()));
+		
 		return userRepository.save(user);
 		
 	}
+	
 	
 
 		public void cancella(Long id) {

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.epicode.progettofinaleepicode.auth.entity.Utente;
+import com.epicode.progettofinaleepicode.auth.entity.UtenteDto;
 import com.epicode.progettofinaleepicode.auth.service.UserService;
 import com.epicode.progettofinaleepicode.entity.Partite;
 import com.epicode.progettofinaleepicode.entity.PartiteDto;
@@ -38,7 +39,7 @@ public class UserController {
 	
 	
 	@PostMapping
-	public ResponseEntity<Utente> insert(@RequestBody Utente user) {
+	public ResponseEntity<Utente> insert(@RequestBody UtenteDto user) {
 		return ResponseEntity.ok(userService.insert(user));
 	}
 
