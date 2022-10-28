@@ -1,9 +1,12 @@
 package com.epicode.progettofinaleepicode.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +23,16 @@ public class Squadre {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@OneToOne
+	private Jersey jersey;
+	
+	private String allenatore;
+	private String sito;
+	private String indirizzo;
+	private BigDecimal latitude;
+	private BigDecimal longitude;
 	private String nome;
+	private String telefono;
 	private int punti  =0;
 	private int vittorie =0;
 	private int pareggi =0;

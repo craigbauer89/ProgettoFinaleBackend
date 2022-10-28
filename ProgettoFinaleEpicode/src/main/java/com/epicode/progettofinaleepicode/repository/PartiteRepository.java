@@ -11,7 +11,7 @@ import com.epicode.progettofinaleepicode.entity.Squadre;
 @Repository
 public interface PartiteRepository extends JpaRepository<Partite, Long> {
 	
-	public Squadre findByDate(LocalDate date);
+	public Partite findByDate(LocalDate date);
 	public boolean existsByDate(LocalDate date);
 
 }
