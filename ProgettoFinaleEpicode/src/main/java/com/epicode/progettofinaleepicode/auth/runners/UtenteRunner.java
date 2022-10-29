@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,8 +27,10 @@ import com.epicode.progettofinaleepicode.auth.entity.Utente;
 import com.epicode.progettofinaleepicode.auth.repository.RoleRepository;
 import com.epicode.progettofinaleepicode.auth.repository.UserRepository;
 import com.epicode.progettofinaleepicode.entity.Jersey;
+import com.epicode.progettofinaleepicode.entity.Partite;
 import com.epicode.progettofinaleepicode.entity.Squadre;
 import com.epicode.progettofinaleepicode.repository.JerseyRepository;
+import com.epicode.progettofinaleepicode.repository.PartiteRepository;
 import com.epicode.progettofinaleepicode.repository.SquadreRepository;
 
 import lombok.AllArgsConstructor;
@@ -40,6 +43,7 @@ public class UtenteRunner implements ApplicationRunner {
 
 	JerseyRepository jerseyRepository;
 	SquadreRepository squadraRepository;
+	PartiteRepository partiteRepository;
 	RoleRepository roleRepository;
 	UserRepository userRepository;
 	PasswordEncoder encoder;
@@ -108,10 +112,37 @@ public class UtenteRunner implements ApplicationRunner {
 			squadraRepository.save(s);
 			}
 		
+		List<Partite> partite = readPartiteFromCSV("partite.csv"); 
+		
+		for (Partite p : partite) { 
+			System.out.println(p);
+			partiteRepository.save(p);
+			}
+		
+		
 		
 	}
 			 
+	private static List<Partite> readPartiteFromCSV(String fileName) { 
+		List<Partite> partite = new ArrayList<>();
+		Path pathToFile = Paths.get(fileName); 
 		
+		try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.US_ASCII)) {
+			
+			String line = br.readLine();
+			
+			while (line != null) { 
+				String[] attributes = line.split(","); 
+				Partite partita = createPartita(attributes); 
+				partite.add(partita); // read next line before looping // if end of file reached, line would be null 
+				line = br.readLine(); 
+				} 
+			} catch (IOException ioe) { 
+				ioe.printStackTrace();
+			} 
+		return partite; 
+		
+		} 
 		
 		private static List<Squadre> readSquadreFromCSV(String fileName) { 
 			List<Squadre> squadre = new ArrayList<>();
@@ -168,6 +199,50 @@ public class UtenteRunner implements ApplicationRunner {
 		}
 
 	
+private static Partite createPartita(String[] metadata) { 
+			
+			List<Squadre> squadre = readSquadreFromCSV("squadre.csv"); 
+			
+			Long id = new Long(metadata[0]);
+			LocalDate date = LocalDate.parse(metadata[1]);
+			Squadre squadra1 =new Squadre();
+			 for (Squadre s : squadre) { 
+					if (s.getId().equals(new Long(metadata[2]))) {
+						squadra1 = s;
+					}
+					}
+			
+			 Integer score1  =  new Integer(metadata[3]);
+			 Integer mete1 = new Integer(metadata[4]);
+			 
+			 Squadre squadra2 =new Squadre();
+			 for (Squadre s : squadre) { 
+					if (s.getId().equals(new Long(metadata[7]))) {
+						squadra2 = s;
+					}
+					}
+			 
+			 Integer score2  =  new Integer(metadata[5]);
+			 Integer mete2   = new Integer(metadata[6]);
+			 
+			
+				
+			Partite partite  = new Partite();
+			partite.setId(id);
+			partite.setDate(date);
+			partite.setSquadra1((Squadre)squadra1);
+			partite.setPuntisquadra1(score1);
+			partite.setMeteSquadra1(mete1);
+			partite.setSquadra2((Squadre)squadra2);
+			partite.setPuntisquadra2(score2);
+			partite.setMeteSquadra2(mete2);
+			
+//			
+		return partite;
+		
+//			
+			
+		}
 //		
 //		for (String color : colors) {
 //			  

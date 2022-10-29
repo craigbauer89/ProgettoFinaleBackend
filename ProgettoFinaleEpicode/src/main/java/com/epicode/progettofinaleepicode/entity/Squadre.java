@@ -19,6 +19,9 @@ import lombok.NoArgsConstructor;
 public class Squadre {
 	
 	
+	public Squadre(Long long1) {
+		// TODO Auto-generated constructor stub
+	}
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -43,6 +46,8 @@ public class Squadre {
 	private int puntiSubiti =0;
 	private int puntiFatti =0;
 	private int differenza =0;
+	
+	
 
 }
 

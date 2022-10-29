@@ -2,6 +2,7 @@ package com.epicode.progettofinaleepicode.entity;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,10 +26,10 @@ public class Partite {
 	
 	private LocalDate date;
 	
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private Squadre squadra1;
 	
-	@OneToOne
+	@OneToOne (cascade = CascadeType.ALL)
 	private Squadre squadra2;
 	private int puntisquadra1 =0;
 	private int puntisquadra2  =0;
