@@ -26,10 +26,10 @@ public class Partite {
 	
 	private LocalDate date;
 	
-	@OneToOne (cascade = CascadeType.ALL)
+	@OneToOne //(cascade = CascadeType.ALL)
 	private Squadre squadra1;
 	
-	@OneToOne (cascade = CascadeType.ALL)
+	@OneToOne //(cascade = CascadeType.ALL)
 	private Squadre squadra2;
 	private int puntisquadra1 =0;
 	private int puntisquadra2  =0;

@@ -179,7 +179,21 @@ public class UtenteRunner implements ApplicationRunner {
 			 String sito  =  metadata[6];
 			 String telefono   =  metadata[7];
 			 Jersey jersey  =  new Jersey(new Long(metadata[8]), colors[ new Integer(metadata[8])]);
-			
+			 Integer puntiFatti = new Integer(metadata[9]);
+			 Integer meteFatti = new Integer(metadata[10]);
+			 Integer puntiSubiti = new Integer(metadata[11]);
+			 Integer meteSubiti = new Integer(metadata[12]);
+			 Integer vittorie = new Integer(metadata[13]);
+			 Integer pareggi = new Integer(metadata[14]);
+			 Integer sconfitte = new Integer(metadata[15]);
+			 Integer giocate = new Integer(metadata[16]);
+			 Integer punti = new Integer(metadata[17]);
+			 Integer differenza = new Integer(metadata[18]);
+			 
+			 
+			 
+//			 65,9,26,2,2,0,0,2,8,39
+			 
 				
 			Squadre squadre  = new Squadre();
 			squadre.setId(id);
@@ -191,7 +205,20 @@ public class UtenteRunner implements ApplicationRunner {
 			squadre.setTelefono(telefono);
 			squadre.setSito(sito);
 			squadre.setJersey((Jersey) jersey);
+			squadre.setGiocate(giocate);
+			squadre.setDifferenza(differenza);
+			squadre.setPareggi(pareggi);
+			squadre.setSconfitte(sconfitte);
+			squadre.setVittorie(vittorie);
+			squadre.setMeteFatti(meteFatti);
+			squadre.setMeteSubiti(meteSubiti);
+			squadre.setPuntiFatti(puntiFatti);
+			squadre.setPuntiSubiti(puntiSubiti);
+			squadre.setPunti(punti);
 //			
+			
+			
+			
 		return squadre;
 		
 //			
