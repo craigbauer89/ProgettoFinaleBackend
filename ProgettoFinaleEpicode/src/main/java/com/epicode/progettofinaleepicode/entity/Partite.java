@@ -31,10 +31,12 @@ public class Partite {
 	
 	@OneToOne //(cascade = CascadeType.ALL)
 	private Squadre squadra2;
+	
 	private int puntisquadra1 =0;
 	private int puntisquadra2  =0;
 	private int meteSquadra1 =0;
 	private int meteSquadra2 =0;
+	private int girone;
 	
 
 }

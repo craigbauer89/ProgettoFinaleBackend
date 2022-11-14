@@ -36,8 +36,8 @@ public class Utente {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-//	@NotBlank
-//	@Size(max = 20)
+	@NotBlank
+	@Size(max = 10)
 	private String username;
 
 //	@NotBlank

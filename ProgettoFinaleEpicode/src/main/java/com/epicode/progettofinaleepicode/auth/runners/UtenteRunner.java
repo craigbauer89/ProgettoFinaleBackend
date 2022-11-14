@@ -92,7 +92,7 @@ public class UtenteRunner implements ApplicationRunner {
 //		userRepository.save(simpleUser2);
 		
 		String[] colors = {"red", "white", "purple", "wine","bluedarkblue", "black", "blueyellow", "redorange", "blackgreen",
-				"redblue", "redwhite", "whiteblue", "yellowgreen","whitedarkblue"};
+				"redblue", "redwhite", "whiteblue", "yellowgreen","whitedarkblue", "greenblue", "redblackyellow", "greenyellowblack","blueredwhite" , "blackgreen" , "blackyellowwhite" ,"blackwhite", "extracolor"};
 		
 		for (String color : colors) {
 			  
@@ -105,7 +105,7 @@ public class UtenteRunner implements ApplicationRunner {
 		
 		}
 		
-		List<Squadre> squadre = readSquadreFromCSV("squadre.csv"); 
+		List<Squadre> squadre = readSquadreFromCSV("squadre3.csv"); 
 		
 		for (Squadre s : squadre) { 
 			System.out.println(s);
@@ -168,7 +168,7 @@ public class UtenteRunner implements ApplicationRunner {
 		private static Squadre createSquadra(String[] metadata) { 
 			
 			String[] colors = {"red", "white", "purple", "wine","bluedarkblue", "black", "blueyellow", "redorange", "blackgreen",
-					"redblue", "redwhite", "whiteblue", "yellowgreen","whitedarkblue"};
+					"redblue", "redwhite", "whiteblue", "yellowgreen","whitedarkblue", "greenblue", "redblackyellow","greenyellowblack","blueredwhite","blackgreen" ,"blackyellowwhite" ,"blackwhite", "extracolor"};
 			
 			Long id = new Long(metadata[0]);
 			BigDecimal latitude = new BigDecimal(metadata[1]);
@@ -179,16 +179,17 @@ public class UtenteRunner implements ApplicationRunner {
 			 String sito  =  metadata[6];
 			 String telefono   =  metadata[7];
 			 Jersey jersey  =  new Jersey(new Long(metadata[8]), colors[ new Integer(metadata[8])]);
-			 Integer puntiFatti = new Integer(metadata[9]);
-			 Integer meteFatti = new Integer(metadata[10]);
-			 Integer puntiSubiti = new Integer(metadata[11]);
-			 Integer meteSubiti = new Integer(metadata[12]);
-			 Integer vittorie = new Integer(metadata[13]);
-			 Integer pareggi = new Integer(metadata[14]);
-			 Integer sconfitte = new Integer(metadata[15]);
-			 Integer giocate = new Integer(metadata[16]);
-			 Integer punti = new Integer(metadata[17]);
-			 Integer differenza = new Integer(metadata[18]);
+			 Integer puntiFatti = new Integer(metadata[15]); //done
+			 Integer meteFatti = new Integer(metadata[14]); //done
+			 Integer puntiSubiti = new Integer(metadata[16]); //done
+			 Integer meteSubiti = new Integer(metadata[18]); //done
+			 Integer vittorie = new Integer(metadata[11]); //done
+			 Integer pareggi = new Integer(metadata[12]); //done
+			 Integer sconfitte = new Integer(metadata[13]); //done
+			 Integer giocate = new Integer(metadata[10]); //done
+			 Integer punti = new Integer(metadata[9]); // done
+			 Integer differenza = new Integer(metadata[17]); //done
+			 Integer girone = new Integer(metadata[19]); //done
 			 
 			 
 			 
@@ -215,6 +216,7 @@ public class UtenteRunner implements ApplicationRunner {
 			squadre.setPuntiFatti(puntiFatti);
 			squadre.setPuntiSubiti(puntiSubiti);
 			squadre.setPunti(punti);
+			squadre.setGirone(girone);
 //			
 			
 			
@@ -228,10 +230,12 @@ public class UtenteRunner implements ApplicationRunner {
 	
 private static Partite createPartita(String[] metadata) { 
 			
-			List<Squadre> squadre = readSquadreFromCSV("squadre.csv"); 
+			List<Squadre> squadre = readSquadreFromCSV("squadre3.csv"); 
 			
 			Long id = new Long(metadata[0]);
 			LocalDate date = LocalDate.parse(metadata[1]);
+			
+			Integer girone = new Integer(metadata[8]);
 			Squadre squadra1 =new Squadre();
 			 for (Squadre s : squadre) { 
 					if (s.getId().equals(new Long(metadata[2]))) {
@@ -263,6 +267,7 @@ private static Partite createPartita(String[] metadata) {
 			partite.setSquadra2((Squadre)squadra2);
 			partite.setPuntisquadra2(score2);
 			partite.setMeteSquadra2(mete2);
+			partite.setGirone(girone);
 			
 //			
 		return partite;

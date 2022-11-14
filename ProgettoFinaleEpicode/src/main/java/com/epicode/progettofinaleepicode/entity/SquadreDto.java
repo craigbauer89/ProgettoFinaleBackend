@@ -33,5 +33,6 @@ public class SquadreDto {
 	private int puntiFatti;
 	private int differenza;
 	private Jersey jersey;
+	private int girone;
 
 }

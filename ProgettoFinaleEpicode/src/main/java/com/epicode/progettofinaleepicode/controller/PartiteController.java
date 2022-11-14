@@ -38,7 +38,7 @@ public class PartiteController {
 	}
 	
 	@PostMapping
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Partite> insert(@RequestBody PartiteDto dto) {
 		return ResponseEntity.ok(partiteService.insert(dto));
 	}
@@ -49,13 +49,13 @@ public class PartiteController {
 	}
 	
 	@PutMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Partite> update(@PathVariable Long id,@RequestBody PartiteDto dto) {
 		return ResponseEntity.ok(partiteService.update(id, dto));
 	}
 	
 	@DeleteMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		partiteService.cancella(id);
 		return ResponseEntity.ok("Partite cancellato");

@@ -46,6 +46,7 @@ public class Squadre {
 	private int puntiSubiti =0;
 	private int puntiFatti =0;
 	private int differenza =0;
+	private int girone;
 	
 	
 

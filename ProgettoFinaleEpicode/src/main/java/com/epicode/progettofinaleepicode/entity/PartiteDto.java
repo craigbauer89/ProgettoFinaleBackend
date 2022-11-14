@@ -3,6 +3,7 @@ package com.epicode.progettofinaleepicode.entity;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,5 +23,7 @@ public class PartiteDto {
 	private int puntisquadra2;
 	private int meteSquadra1;
 	private int meteSquadra2;
+	private int girone;
+	private	List<Squadre> squadre;
 
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +39,7 @@ public class SquadreController {
 	}
 	
 	@PostMapping
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Squadre> insert(@RequestBody SquadreDto dto) {
 		return ResponseEntity.ok(squadreService.insert(dto));
 	}
@@ -49,13 +50,13 @@ public class SquadreController {
 	}
 	
 	@PutMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Squadre> update(@PathVariable Long id,@RequestBody SquadreDto dto) {
 		return ResponseEntity.ok(squadreService.update(id, dto));
 	}
 	
 	@DeleteMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		squadreService.cancella(id);
 		return ResponseEntity.ok("Squadra cancellato");

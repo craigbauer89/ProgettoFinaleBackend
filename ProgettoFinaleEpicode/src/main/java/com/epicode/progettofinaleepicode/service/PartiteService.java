@@ -55,9 +55,9 @@ public class PartiteService {
 	
 //	public Partite insert(@Valid PartiteDto dto) {
 	public Partite insert(PartiteDto dto) {
-		if(partiteRepository.existsByDate(dto.getDate())) {
-			throw new EntityExistsException("Partita gia inserito");
-		}
+//		if(partiteRepository.existsByDate(dto.getDate())) {
+//			throw new EntityExistsException("Partita gia inserito");
+//		}
 		
 		Partite partita = partiteProvider.getObject();
 		BeanUtils.copyProperties(dto, partita);

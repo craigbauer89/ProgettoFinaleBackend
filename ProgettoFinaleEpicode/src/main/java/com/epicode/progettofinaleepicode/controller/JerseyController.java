@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +41,7 @@ public class JerseyController {
 	}
 	
 	@PostMapping
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Jersey> insert(@RequestBody JerseyDto dto) {
 		return ResponseEntity.ok(jerseyService.insert(dto));
 	}
@@ -51,13 +52,13 @@ public class JerseyController {
 	}
 	
 	@PutMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Jersey> update(@PathVariable Long id,@RequestBody JerseyDto dto) {
 		return ResponseEntity.ok(jerseyService.update(id, dto));
 	}
 	
 	@DeleteMapping("/{id}")
-//	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
 		jerseyService.cancella(id);
 		return ResponseEntity.ok("Jersey cancellato");
